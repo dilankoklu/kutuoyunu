@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaçan Kutular</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: pink;
+        }
+        .box {
+            width: 80px;
+            height: 80px;
+            background-color: purple;
+            position: absolute;
+            border-radius: 8px;
+            transition: transform 0.2s ease, left 0.3s, top 0.3s;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const numberOfBoxes = 20; 
+
+    for (let i = 0; i < numberOfBoxes; i++) {
+        const box = document.createElement("div");
+        box.classList.add("box");
+
+       
+        box.style.left = Math.random() * (window.innerWidth - 100) + "px";
+        box.style.top = Math.random() * (window.innerHeight - 100) + "px";
+
+        document.body.appendChild(box);
+
+        box.addEventListener("mouseenter", () => {
+            moveBox(box);
+        });
+    }
+
+    function moveBox(box) {
+        const maxX = window.innerWidth - box.offsetWidth;
+        const maxY = window.innerHeight - box.offsetHeight;
+
+        let newLeft = Math.random() * maxX;
+        let newTop = Math.random() * maxY;
+
+        box.style.left = newLeft + "px";
+        box.style.top = newTop + "px";
+    }
+
+    window.addEventListener("resize", () => {
+        document.querySelectorAll(".box").forEach(box => {
+            moveBox(box);
+        });
+    });
+</script>
+
+</body>
+</html>
